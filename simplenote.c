@@ -18,11 +18,12 @@ int main(int argc, char *argv[]){
   char *buffer, * datafile;
   buffer = (char *)ec_malloc(100);
   datafile = (char *)ec_malloc(20);
-  strcpy(datafile, argv[1]);
-
   if (argc < 3){
+
     usage(argv[0], argv[1]);
+
   }
+  strcpy(datafile, argv[1]);
   strcpy(buffer, argv[2]);
   printf("\t[DEBUG] buffer @ %p: \'%s'\n ", buffer, buffer);
   printf("\t[DEBUG] datafile @ %p: \'%s'\n ", datafile, datafile);
