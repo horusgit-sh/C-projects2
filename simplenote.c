@@ -14,7 +14,7 @@ void fatal(char *);
 void *ec_malloc(unsigned int);
 
 int main(int argc, char *argv[]){
-  int fd;
+  int userid, fd;
   char *buffer, * datafile;
   buffer = (char *)ec_malloc(100);
   datafile = (char *)ec_malloc(20);
@@ -34,9 +34,16 @@ int main(int argc, char *argv[]){
   if (fd == -1){
     fatal("in main() while opening file");
   }
-  if (write(fd, buffer, strlen(buffer)) == -1){
-    fatal("in main() while writing to file");
+  userid = getuid();
+
+  if (write(fd, &userid, 4) == -1){
+    fatal("in main() while writing userid to file");
   }
+  write(fd, "\n", 1);
+  if (write(fd, buffer, strlen(buffer)) == -1){
+    fatal("in main() while writing buffer to file");
+  }
+  write(fd, "\n", 1);
   if (close(fd) == -1){
     fatal("in main() while closing file");
   }
